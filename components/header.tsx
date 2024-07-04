@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react';
 import { CSSProperties } from 'react';
 import { ModeToggle } from './mode-toggle';
