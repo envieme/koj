@@ -12,7 +12,7 @@ const exampleMessages = [
   },
   {
     heading: 'How does Aadhar work',
-    message: 'How does Aadhar work?'
+    message: 'How does aadhar work?'
   },
   {
     heading: 'Compare Mahindra vs Tata in EV',
