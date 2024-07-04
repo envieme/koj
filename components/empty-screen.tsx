@@ -3,20 +3,20 @@ import { ArrowRight } from 'lucide-react'
 
 const exampleMessages = [
   {
-    heading: 'What is Apple Intelligence?',
-    message: 'What is Apple Intelligence?'
+    heading: 'What is Carvaka philosophy?',
+    message: 'What is Carvaka philosophy?'
   },
   {
-    heading: 'Why is Nvidia growing rapidly?',
-    message: 'Why is Nvidia growing rapidly?'
+    heading: 'Why is India growing rapidly?',
+    message: 'Why is India growing rapidly?'
   },
   {
-    heading: 'How does the Vercel AI SDK work?',
-    message: 'How does the Vercel AI SDK work?'
+    heading: 'How does the Aadhar work',
+    message: 'How does the Aadhar system work?'
   },
   {
-    heading: 'Tesla vs Rivian',
-    message: 'Tesla vs Rivian'
+    heading: 'Compare Mahindra vs Tata in EV',
+    message: 'Compare Mahindra vs Tata in EV'
   }
 ]
 export function EmptyScreen({
