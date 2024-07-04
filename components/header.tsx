@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
           <span className="sr-only">Kojle</span>
         </a>
       </div>
-      <span style={{ ...spanStyle, opacity: isScrolled ? 0 : 1 }}>Kojle</span>
+      <span style={{ ...spanStyle}}>Kojle</span>
       <div className="flex gap-0.5">
         <ModeToggle />
         <HistoryContainer location="header" />
