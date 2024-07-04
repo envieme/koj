@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { Chat } from '@/components/chat'
 import { getSharedChat } from '@/lib/actions/chat'
 import { AI } from '@/app/actions'
-
+export const runtime = 'edge';
 export interface SharePageProps {
   params: {
     id: string
