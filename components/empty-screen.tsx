@@ -11,8 +11,8 @@ const exampleMessages = [
     message: 'Why is India growing rapidly?'
   },
   {
-    heading: 'How does the Aadhar work',
-    message: 'How does the Aadhar system work?'
+    heading: 'How does Aadhar work',
+    message: 'How does Aadhar work?'
   },
   {
     heading: 'Compare Mahindra vs Tata in EV',
