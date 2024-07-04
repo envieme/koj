@@ -1,8 +1,14 @@
 import React from 'react'
+import { CSSProperties } from 'react';
 import { ModeToggle } from './mode-toggle'
 import { IconLogo } from './ui/icons'
 import { cn } from '@/lib/utils'
 import HistoryContainer from './history-container'
+
+const spanStyle: CSSProperties = {
+  textAlign: 'center',
+  fontSize: '64px',
+};
 
 export const Header: React.FC = async () => {
   return (
@@ -13,7 +19,7 @@ export const Header: React.FC = async () => {
           <span className="sr-only">Kojle</span>
         </a>
       </div>
-      <span style="text-align:center;font-size:64px;">Kojle</span>
+      <span style={spanStyle}>Kojle</span>
       <div className="flex gap-0.5">
         <ModeToggle />
         <HistoryContainer location="header" />
