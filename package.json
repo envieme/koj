@@ -60,4 +60,9 @@
     "eslint": "^8",
     "eslint-config-next": "^14.2.3"
   }
+  {
+  "scripts": {
+    "cf:build": "mkdir .vercel; echo '{\"projectId\":\"_\",\"orgId\":\"_\",\"settings\":{\"framework\":\"nextjs\"}}' > .vercel/project.json; npx vercel build; rm -rf .vercel/output/functions/_not-found*; rm -rf .vercel/output/functions/_error*; npx @cloudflare/next-on-pages --skip-build;"
+  }
+}
 }
