@@ -46,7 +46,7 @@ export function History({ location, children }: HistoryProps) {
           })}
           disabled={isGenerating}
         >
-          {location === 'header' ? <Menu /> : <ChevronLeft size={56} />}
+          {location === 'header' ? <Menu /> : <ChevronLeft size={0} />}
         </Button>
       </SheetTrigger>
       <SheetContent className="w-64 rounded-tl-xl rounded-bl-xl">
