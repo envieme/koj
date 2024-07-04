@@ -6,7 +6,7 @@ import { headers } from 'next/headers'
 export default async function NotFound() {
   return (
     <div>
-      <h2>Not Found: {data.name}</h2>
+      <h2>Not Found:</h2>
       <p>Could not find requested resource</p>
       <p>
         View <Link href="/blog">all posts</Link>
