@@ -13,6 +13,7 @@ export const Header: React.FC = async () => {
           <span className="sr-only">Kojle</span>
         </a>
       </div>
+      <span style="text-align:center;font-size:64px;">Kojle</span>
       <div className="flex gap-0.5">
         <ModeToggle />
         <HistoryContainer location="header" />
