@@ -1,6 +1,7 @@
-import React from 'react';
-import { useClient } from 'next/edge'; // Import useClient from next/edge
-import { useEffect } from 'react';
+// components/chat.tsx
+'use client';
+
+import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { ChatPanel } from './chat-panel';
 import { ChatMessages } from './chat-messages';
@@ -22,14 +23,9 @@ export function Chat({ id, query }: ChatProps) {
   }, [id, path, messages, query]);
 
   return (
-    <div className="px-8 sm:px-12 pt-12 md:pt-14 pb-14 md:pb-24 max-w-3xl mx-auto flex flex-col space-y-3 md:space-y-4 mt-32">
+    <div className="px-8 sm:px-12 pt-12 md:pt-14 pb-14 md:pb-24 max-w-3xl mx-auto flex flex-col space-y-3 md:space-y-4">
       <ChatMessages messages={messages} />
       <ChatPanel messages={messages} query={query} />
     </div>
   );
-}
-
-export default function ClientChat(props: ChatProps) {
-  useClient(); // Ensure this component is treated as client-side
-  return <Chat {...props} />;
 }
