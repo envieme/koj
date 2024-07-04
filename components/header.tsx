@@ -8,6 +8,7 @@ import HistoryContainer from './history-container';
 const spanStyle: CSSProperties = {
   textAlign: 'center',
   fontSize: '64px',
+  marginLeft:'45px',
   position: 'fixed',
   top: '0',
   left: '50%',
