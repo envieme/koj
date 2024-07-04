@@ -15,8 +15,7 @@ const fontSans = FontSans({
 })
 
 const title = 'Kojle'
-const description =
-  'Your Search Ends Here.'
+const description ='Your Search Ends Here.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://kojle.com'),
