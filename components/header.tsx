@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
           <span className="sr-only">Kojle</span>
         </a>
       </div>
-       <a href="/"><span style={{ ...spanStyle}}>Kojle</span>></a>
+       <a href="/"><span style={{ ...spanStyle}}>Kojle</span></a>
       <div className="flex gap-0.5">
         <ModeToggle />
         <HistoryContainer location="header" />
