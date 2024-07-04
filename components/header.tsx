@@ -1,16 +1,16 @@
-'use client'
-
+// Import required modules and hooks
 import React, { useEffect, useState } from 'react';
+import { useClient } from 'next/edge'; // Import useClient from next/edge
 import { CSSProperties } from 'react';
 import { ModeToggle } from './mode-toggle';
 import { IconLogo } from './ui/icons';
 import { cn } from '@/lib/utils';
 import HistoryContainer from './history-container';
 
+// Define CSS styles for the span element
 const spanStyle: CSSProperties = {
   textAlign: 'center',
   fontSize: '64px',
-  marginLeft:'45px',
   position: 'fixed',
   top: '0',
   left: '50%',
@@ -19,19 +19,25 @@ const spanStyle: CSSProperties = {
   opacity: 1, // Start with full opacity
 };
 
+// Define the Header component
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Use useEffect to handle scroll events
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 0); // Change to your desired scroll position to start fading
+      setIsScrolled(scrollPosition > 0); // Set isScrolled to true if scrolled
     };
 
+    // Add event listener for scroll
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
+    // Clean up by removing event listener
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []); // Empty dependency array means it runs once on mount
+
+  // Return the JSX for the Header component
   return (
     <header className={`w-full p-1 md:p-2 flex justify-between items-center z-10 backdrop-blur md:backdrop-blur-none bg-background/80 md:bg-transparent ${isScrolled ? 'hidden' : ''}`}>
       <div>
@@ -49,4 +55,8 @@ export const Header: React.FC = () => {
   );
 };
 
-export default Header;
+// Export the Header component as default
+export default function ClientHeader() {
+  useClient(); // Use useClient to mark this component as client-side
+  return <Header />;
+}
