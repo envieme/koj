@@ -13,6 +13,7 @@ const spanStyle: CSSProperties = {
   left: '50%',
   transform: 'translateX(-50%)',
   transition: 'opacity 0.3s ease-out',
+  opacity: 1, // Start with full opacity
 };
 
 export const Header: React.FC = () => {
@@ -21,7 +22,7 @@ export const Header: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 0); // Change to your desired scroll position to hide the heading
+      setIsScrolled(scrollPosition > 0); // Change to your desired scroll position to start fading
     };
 
     window.addEventListener('scroll', handleScroll);
