@@ -1,12 +1,14 @@
 // components/header.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import { ModeToggle } from './mode-toggle';
 import { IconLogo } from './ui/icons';
 import { cn } from '@/lib/utils';
-import HistoryContainer from './history-container';
+import dynamic from 'next/dynamic';
+
+// Dynamically import HistoryContainer to ensure it's client-side rendered
+const HistoryContainer = dynamic(() => import('./history-container'), { ssr: false });
 
 const spanStyle: CSSProperties = {
   textAlign: 'center',
@@ -28,7 +30,7 @@ export const Header: React.FC = () => {
           <span className="sr-only">Kojle</span>
         </a>
       </div>
-       <a href="/"><span style={{ ...spanStyle}}>Kojle</span></a>
+      <a href="/"><span style={{ ...spanStyle }}>Kojle</span></a>
       <div className="flex gap-0.5">
         <ModeToggle />
         <HistoryContainer location="header" />
