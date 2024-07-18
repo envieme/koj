@@ -29,8 +29,14 @@ export const metadata: Metadata = {
     title,
     description,
     card: 'summary_large_image',
-    creator: '@miiura'
-  }
+    creator: ''
+  },
+  additionalMetaTags: [
+    {
+      name: 'google-adsense-account',
+      content: 'ca-pub-1753126371326468'
+    }
+  ]
 }
 
 export const viewport: Viewport = {
@@ -39,6 +45,8 @@ export const viewport: Viewport = {
   minimumScale: 1,
   maximumScale: 1
 }
+
+export const 
 
 export default function RootLayout({
   children
