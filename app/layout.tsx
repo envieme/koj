@@ -46,7 +46,6 @@ export const viewport: Viewport = {
   maximumScale: 1
 }
 
-export const 
 
 export default function RootLayout({
   children
