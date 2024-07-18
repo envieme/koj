@@ -19,6 +19,7 @@ export function SearchSection({ result, includeDomains }: SearchSectionProps) {
   const includeDomainsString = includeDomains
     ? ` [${includeDomains.join(', ')}]`
     : ''
+
   return (
     <div>
       {!pending && data ? (
@@ -36,6 +37,20 @@ export function SearchSection({ result, includeDomains }: SearchSectionProps) {
           )}
           <Section title="Sources">
             <SearchResults results={searchResults.results} />
+          </Section>
+          {/* Insert AdSense script after Sources section */}
+          <Section>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1753126371326468"
+                    crossorigin="anonymous"></script>
+            <ins className="adsbygoogle"
+                 style={{ display: 'block', textAlign: 'center' }}
+                 data-ad-layout="in-article"
+                 data-ad-format="fluid"
+                 data-ad-client="ca-pub-sdsd"
+                 data-ad-slot="23232"></ins>
+            <script dangerouslySetInnerHTML={{ __html: `
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            ` }} />
           </Section>
         </>
       ) : (
