@@ -41,7 +41,7 @@ export function SearchSection({ result, includeDomains }: SearchSectionProps) {
           {/* Insert AdSense script after Sources section */}
           <Section>
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1753126371326468"
-                    crossorigin="anonymous"></script>
+                    crossOrigin="anonymous"></script>
             <ins className="adsbygoogle"
                  style={{ display: 'block', textAlign: 'center' }}
                  data-ad-layout="in-article"
