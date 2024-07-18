@@ -23,8 +23,8 @@ const spanStyle: CSSProperties = {
 
 export const Header: React.FC = () => {
   return (
-    <meta name="google-adsense-account" content="ca-pub-1753126371326468"></meta>
     <header className={`w-full p-1 md:p-2 flex justify-between items-center z-10 backdrop-blur md:backdrop-blur-none bg-background/80 md:bg-transparent`}>
+      <meta name="google-adsense-account" content="ca-pub-1753126371326468"></meta>
       <div>
         <a href="/">
           <IconLogo className={cn('w-5 h-5')} />
