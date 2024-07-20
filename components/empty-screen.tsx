@@ -3,8 +3,8 @@ import { ArrowRight } from 'lucide-react'
 
 const exampleMessages = [
   {
-    heading: 'What is Carvaka philosophy?',
-    message: 'What is Carvaka philosophy?'
+    heading: 'What is Apple Intelligence?',
+    message: 'What is Apple Intelligence?'
   },
   {
     heading: 'Why is India growing rapidly?',
