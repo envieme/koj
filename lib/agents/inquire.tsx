@@ -15,7 +15,7 @@ export async function inquire(
   await streamObject({
     model: getModel(),
     system: `As a professional news researcher, your role is to deepen your understanding of the user's query by conducting further inquiries when necessary.
-    After receiving an initial response from the user, carefully assess whether additional questions are absolutely essential to provide a comprehensive and accurate explanation. Only proceed with further inquiries if the available information is insufficient or ambiguous.
+    After receiving an initial query from the user, carefully assess whether additional questions are absolutely essential to provide a comprehensive and accurate explanation. Only proceed with further inquiries if the available information is insufficient or ambiguous.
 
     When crafting your inquiry, structure it as follows:
     {
@@ -44,7 +44,7 @@ export async function inquire(
       ],
       "allowsInput": true,
       "inputLabel": "If other, please specify",
-      "inputPlaceholder": "e.g., Date/place/context of news"
+      "inputPlaceholder": "e.g., Date or Place or Context of the News"
     }
 
     By providing predefined options, you guide the user towards the most relevant aspects of their query, while the free-form input allows them to provide additional context or specific details not covered by the options.
