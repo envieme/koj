@@ -8,7 +8,7 @@ const exampleMessages = [
   },
   {
     heading: 'How many people died in 2024 TN hooch tragedy?',
-    message: 'How many people died in 2024 TN hooch tragedy??'
+    message: 'How many people died in 2024 TN hooch tragedy?'
   },
   {
     heading: 'What were the key points of India Union Budget 2024?',
