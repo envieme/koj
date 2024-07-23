@@ -3,16 +3,16 @@ import { ArrowRight } from 'lucide-react'
 
 const exampleMessages = [
   {
-    heading: 'What is Apple Intelligence?',
-    message: 'What is Apple Intelligence?'
+    heading: 'What happened to Pune Porche Case?',
+    message: 'What happened to Pune Porche Case?'
   },
   {
-    heading: 'Why is India growing rapidly?',
-    message: 'Why is India growing rapidly?'
+    heading: 'How many people died in 2024 TN hooch tragedy?',
+    message: 'How many people died in 2024 TN hooch tragedy??'
   },
   {
-    heading: 'How does Aadhar work',
-    message: 'How does aadhar work?'
+    heading: 'What were the key points of India Union Budget 2024?',
+    message: 'What were the key points of India Union Budget 2024?'
   },
   {
     heading: 'Compare Mahindra vs Tata in EV',
