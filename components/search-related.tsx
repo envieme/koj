@@ -59,7 +59,7 @@ export const SearchRelated: React.FC<SearchRelatedProps> = ({
   }
 
   return related ? (
-    <Section title="Related" separator={true}>
+    <Section title="Question more..." separator={true}>
       <form onSubmit={handleSubmit} className="flex flex-wrap">
         {related?.items
           ?.filter(item => item?.query !== '')
@@ -80,7 +80,7 @@ export const SearchRelated: React.FC<SearchRelatedProps> = ({
       </form>
     </Section>
   ) : error ? null : (
-    <Section title="Related" separator={true}>
+    <Section title="Question more..." separator={true}>
       <Skeleton className="w-full h-6" />
     </Section>
   )
