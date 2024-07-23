@@ -23,6 +23,8 @@ const spanStyle: CSSProperties = {
 
 export const Header: React.FC = () => {
   return (
+    <header>
+    </header>
   );
 };
 
