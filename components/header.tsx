@@ -13,7 +13,6 @@ const HistoryContainer = dynamic(() => import('./history-container'), { ssr: fal
 const spanStyle: CSSProperties = {
   textAlign: 'center',
   fontSize: '64px',
-  position: 'fixed',
   top: '0',
   left: '50%',
   transform: 'translateX(-50%)',
@@ -23,7 +22,7 @@ const spanStyle: CSSProperties = {
 
 export const Header: React.FC = () => {
   return (
-    <header className={`w-full p-1 md:p-2 flex justify-between items-center z-10 backdrop-blur md:backdrop-blur-none bg-background/80 md:bg-transparent`} style={{ background: '#hsl(var(--background)', paddingBottom: '45px' }}>      <meta name="google-adsense-account" content="ca-pub-1753126371326468"></meta>
+    <header className={`w-full p-1 md:p-2 flex justify-between items-center z-10 backdrop-blur md:backdrop-blur-none bg-background/80 md:bg-transparent`}}>      <meta name="google-adsense-account" content="ca-pub-1753126371326468"></meta>
       <div>
         <a href="/">
           <IconLogo className={cn('w-5 h-5')} />
