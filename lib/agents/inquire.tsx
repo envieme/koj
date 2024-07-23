@@ -14,8 +14,8 @@ export async function inquire(
   let finalInquiry: PartialInquiry = {}
   await streamObject({
     model: getModel(),
-    system: `As a professional web researcher, your role is to deepen your understanding of the user's input by conducting further inquiries when necessary.
-    After receiving an initial response from the user, carefully assess whether additional questions are absolutely essential to provide a comprehensive and accurate answer. Only proceed with further inquiries if the available information is insufficient or ambiguous.
+    system: `As a professional news researcher, your role is to deepen your understanding of the user's query by conducting further inquiries when necessary.
+    After receiving an initial response from the user, carefully assess whether additional questions are absolutely essential to provide a comprehensive and accurate explanation. Only proceed with further inquiries if the available information is insufficient or ambiguous.
 
     When crafting your inquiry, structure it as follows:
     {
@@ -34,21 +34,21 @@ export async function inquire(
 
     For example:
     {
-      "question": "What specific information are you seeking about Rivian?",
+      "question": "What specific news are you seeking about Union Budget?",
       "options": [
-        {"value": "history", "label": "History"},
-        {"value": "products", "label": "Products"},
-        {"value": "investors", "label": "Investors"},
-        {"value": "partnerships", "label": "Partnerships"},
-        {"value": "competitors", "label": "Competitors"}
+        {"value": "Union Budget 2024", "label": "Union Budget 2024"},
+        {"value": "India Union Budget", "label": "India Union Budget"},
+        {"value": "Politics of Union Budget", "label": "Politics"},
+        {"value": "Key Points of union budget", "label": "Key Points"},
+        {"value": "Youth Schemes", "label": "Youth Schemes"}
       ],
       "allowsInput": true,
       "inputLabel": "If other, please specify",
-      "inputPlaceholder": "e.g., Specifications"
+      "inputPlaceholder": "e.g., Date/place/context of news"
     }
 
     By providing predefined options, you guide the user towards the most relevant aspects of their query, while the free-form input allows them to provide additional context or specific details not covered by the options.
-    Remember, your goal is to gather the necessary information to deliver a thorough and accurate response.
+    Remember, your goal is to gather the necessary information to deliver a thorough and accurate explanation.
     Please match the language of the response (question, labels, inputLabel, and inputPlaceholder) to the user's language, but keep the "value" field in English.
     `,
     messages,
