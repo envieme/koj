@@ -59,59 +59,30 @@ export const searchTool = ({ uiStream, fullResponse }: ToolProps) => tool({
   }
 })
 
-  async function tavilySearch(
-    query: string,
-    maxResults: number = 10,
-    searchDepth: 'basic' | 'advanced' = 'basic',
-    excludeDomains: string[] = [],
-    includeDomains: string[] = [
-      'nytimes.com',
-      'wsj.com',
-      'washingtonpost.com',
-      'axios.com',
-      'cnn.com',
-      'nbcnews.com',
-      'usatoday.com',
-      'forbes.com',
-      'abcnews.go.com',
-      'reuters.com',
-      'ndtv.com',
-      'timesofindia.indiatimes.com',
-      'thehindu.com',
-      'hindustantimes.com',
-      'indiatoday.in',
-      'economicstimes.indiatimes.com',
-      'business-standard.com',
-      'firstpost.com',
-      'scroll.in',
-      'firstpost.com',
-      'bbc.com',
-      'ft.com',
-      'wsj.com',
-      'mint.com',
-      'zerohedge.com'
-    ]
-  ): Promise<any> {
-    const apiKey = process.env.TAVILY_API_KEY;
-  
-    const response = await fetch('https://api.tavily.com/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        api_key: apiKey,
-        query,
-        max_results: maxResults < 5 ? 5 : maxResults,
-        search_depth: searchDepth,
-        topic: 'general',
-        include_images: true,
-        include_answer: true,
-        include_domains: includeDomains,
-        exclude_domains: excludeDomains,
-        use_cache: true // Assuming you want to use cache by default
-      })
-    });
+async function tavilySearch(
+  query: string,
+  maxResults: number = 10,
+  searchDepth: 'basic' | 'advanced' = 'basic',
+  includeDomains: string[] = [],
+  excludeDomains: string[] = []
+): Promise<any> {
+  const apiKey = process.env.TAVILY_API_KEY
+  const response = await fetch('https://api.tavily.com/search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      api_key: apiKey,
+      query,
+      max_results: maxResults < 5 ? 5 : maxResults,
+      search_depth: searchDepth,
+      include_images: true,
+      include_answers: true,
+      include_domains: includeDomains,
+      exclude_domains: excludeDomains
+    })
+  })
 
   if (!response.ok) {
     throw new Error(`Error: ${response.status}`)
