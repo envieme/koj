@@ -20,6 +20,8 @@ export async function writer(
     organization: '' // optional organization
   })
 
+  const currentDate = new Date().toLocaleString()
+
   await streamText({
     model: openai!.chat(process.env.SPECIFIC_API_MODEL || 'llama3-70b-8192'),
     maxTokens: 2500,
