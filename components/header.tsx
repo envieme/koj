@@ -18,6 +18,7 @@ const spanStyle: CSSProperties = {
   transform: 'translateX(-50%)',
   transition: 'opacity 0.3s ease-out',
   opacity: 1, // Start with full opacity
+  margin-left: 50px,
 };
 
 export const Header: React.FC = () => {
@@ -27,7 +28,7 @@ export const Header: React.FC = () => {
       <div>
         <a href="/">
           <IconLogo className={cn('w-5 h-5')} />
-          <span className="sr-only">Kojle</span>
+          <span className="sr-only">K</span>
         </a>
       </div>
       <a href="/"><span style={{ ...spanStyle }}>Kojle</span></a>
