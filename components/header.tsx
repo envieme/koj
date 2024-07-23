@@ -18,7 +18,7 @@ const spanStyle: CSSProperties = {
   transform: 'translateX(-50%)',
   transition: 'opacity 0.3s ease-out',
   opacity: 1, // Start with full opacity
-  margin-left: '50px',
+  marginLeft: '50px',
 };
 
 export const Header: React.FC = () => {
