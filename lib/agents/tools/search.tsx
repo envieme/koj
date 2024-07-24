@@ -63,8 +63,6 @@ async function tavilySearch(
   query: string,
   maxResults: number = 10,
   searchDepth: 'basic' | 'advanced' = 'basic',
-  include_images: true,
-  include_answers: true,
   excludeDomains: string[] = [],
   includeDomains: string[] = [
     'mayoclinic.org',  // Mayo Clinic
@@ -113,7 +111,7 @@ async function tavilySearch(
       max_results: maxResults < 5 ? 5 : maxResults,
       search_depth: searchDepth,
       topic: 'general',
-      include_images: false,
+      include_images: true,
       include_answer: true,
       include_domains: includeDomains,
       exclude_domains: excludeDomains,
