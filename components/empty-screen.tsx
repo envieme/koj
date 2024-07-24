@@ -3,20 +3,20 @@ import { ArrowRight } from 'lucide-react'
 
 const exampleMessages = [
   {
-    heading: 'What is Apple Intelligence?',
-    message: 'What is Apple Intelligence?'
+    heading: 'Tell me about Intestinal Blockage',
+    message: 'Intestinal Blockage'
   },
   {
-    heading: 'Why is India growing rapidly?',
-    message: 'Why is India growing rapidly?'
+    heading: 'Why am I tired all the time?',
+    message: 'Why am I tired all the time?'
   },
   {
-    heading: 'How does Aadhar work',
-    message: 'How does aadhar work?'
+    heading: 'How does Aspirin work?',
+    message: 'How does Aspirin work?'
   },
   {
-    heading: 'Compare Mahindra vs Tata in EV',
-    message: 'Compare Mahindra vs Tata in EV'
+    heading: 'What is Alzheimers Disease?',
+    message: 'What is Alzheimers Disease?'
   }
 ]
 export function EmptyScreen({

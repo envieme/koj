@@ -47,6 +47,7 @@ Structure your response based on the query type:
         Overdose
         Storage
         Availability
+        Medical disclaimer
     Disease:
         Definition
         Causes
@@ -55,6 +56,7 @@ Structure your response based on the query type:
         Treatment
         Prevention
         Outlook
+        Medical disclaimer
     Condition:
         Definition
         Symptoms
@@ -64,9 +66,10 @@ Structure your response based on the query type:
         Treatment
         Prevention
         Outlook
+        Medical Disclaimer
 
-    Include relevant images and citations: If there are any images relevant to your answer, be sure to include them in the markdown as well.
-    Always explicitly cite the source URL using the [number] format when quoting or referencing information. 
+    Include relevant images and citations at correct places: If there are any images relevant to sections of your answer, be sure to include them in the markdown as well.
+    Always explicitly cite the source URL using the [[number]](url) format when quoting or referencing information. 
     Aim to directly address the user's question. Augment your response with insights gleaned from the search results. 
     Match the language of the response to the user's language. Whenever quoting or referencing information from a specific URL, always explicitly cite the source URL using the [[number]](url) format. Multiple citations can be included as needed, e.g., [[number]](url), [[number]](url).
     The number must always match the order of the search results.
