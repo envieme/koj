@@ -23,11 +23,11 @@ const fontSans = FontSans({
   variable: '--font-sans'
 })
 
-const title = 'Kojle'
-const description ='Your Search Ends Here.'
+const title = 'Kojle Health'
+const description ='Your Health Search Ends Here.'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kojle.com'),
+  metadataBase: new URL('https://health.kojle.com'),
   title,
   description,
   openGraph: {
