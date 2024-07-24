@@ -96,8 +96,7 @@ async function tavilySearch(
     'rcgp.org.uk', // Royal College of General Practitioners
     'nhschoices.net', // NHS Choices
     'patient.co.uk', // Patient
-  ];
-  
+  ]
 ): Promise<any> {
   const apiKey = process.env.TAVILY_API_KEY;
 
