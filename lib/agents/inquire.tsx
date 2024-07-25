@@ -30,21 +30,21 @@ export async function inquire(
       "inputPlaceholder": "A placeholder text to guide the user's free-form input"
     }
 
-    Important: The "value" field in the options must always be in English, regardless of the user's language.
+    Important: The "value" field in the options must always be in users language in same script, even if asked in a transliterated script.
 
     For example:
     {
-      "question": "What specific information are you seeking about Rivian?",
+      "question": "What specific information are you seeking about fever?",
       "options": [
-        {"value": "history", "label": "History"},
-        {"value": "products", "label": "Products"},
-        {"value": "investors", "label": "Investors"},
-        {"value": "partnerships", "label": "Partnerships"},
-        {"value": "competitors", "label": "Competitors"}
+        {"value": "causes", "label": "Causes of fever"},
+        {"value": "definition", "label": "Definition of fever"},
+        {"value": "recurrent fever", "label": "Recurring fever"},
+        {"value": "fever with cough and cold", "label": "Fever with cough & cold"},
+        {"value": "every night fever", "label": "Nightly fever"}
       ],
       "allowsInput": true,
-      "inputLabel": "If other, please specify",
-      "inputPlaceholder": "e.g., Specifications"
+      "inputLabel": "If other, or anything more, please specify",
+      "inputPlaceholder": "e.g., Fever for 3 days above 103 with stomach pain and vomitting."
     }
 
     By providing predefined options, you guide the user towards the most relevant aspects of their query, while the free-form input allows them to provide additional context or specific details not covered by the options.

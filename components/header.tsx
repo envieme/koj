@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic';
 // Dynamically import HistoryContainer to ensure it's client-side rendered
 const HistoryContainer = dynamic(() => import('./history-container'), { ssr: false });
 
-const spanStyle: CSSProperties = {
+const logoStyle: CSSProperties = {
   textAlign: 'center',
   fontSize: '64px',
   top: '0',
@@ -19,6 +19,10 @@ const spanStyle: CSSProperties = {
   transition: 'opacity 0.3s ease-out',
   opacity: 1, // Start with full opacity
   marginLeft: '50px',
+};
+
+const healthStyle: CSSProperties = {
+  fontSize: '12px',
 };
 
 export const Header: React.FC = () => {
@@ -31,7 +35,7 @@ export const Header: React.FC = () => {
           <span className="sr-only">K</span>
         </a>
       </div>
-      <a href="/"><span style={{ ...spanStyle }}>Kojle Health</span></a>
+      <a href="/"><div style={{ ...logoStyle }}>Kojle<span style={{ ...healthStyle }}>Health</span></div></a>
       <div className="flex gap-0.5">
         <ModeToggle />
         <HistoryContainer location="header" />
