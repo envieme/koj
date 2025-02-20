@@ -2,10 +2,7 @@
 
 An AI-powered search engine with a generative UI.
 
-![capture](/public/capture-240404_blk.png)
-
-> [!NOTE]
-> Please note that there are differences between this repository and the official website [morphic.sh](https://morphic.sh). The official website is a fork of this repository with additional features such as authentication, which are necessary for providing the service online. The core source code of Morphic resides in this repository, and it's designed to be easily built and deployed.
+![capture](/public/screenshot-2025-01-31.png)
 
 ## 🗂️ Overview
 
@@ -15,34 +12,81 @@ An AI-powered search engine with a generative UI.
 - 🌐 [Deploy](#-deploy)
 - 🔎 [Search Engine](#-search-engine)
 - ✅ [Verified models](#-verified-models)
+- ⚡ [AI SDK Implementation](#-ai-sdk-implementation)
+- 📦 [Open Source vs Cloud Offering](#-open-source-vs-cloud-offering)
+- 👥 [Contributing](#-contributing)
 
 ## 🛠 Features
 
-- Search and answer using GenerativeUI
-- Understand user's questions
-- Search history functionality
-- Share search results ([Optional](https://github.com/miurla/morphic/blob/main/.env.local.example))
-- Video search support ([Optional](https://github.com/miurla/morphic/blob/main/.env.local.example))
-- Get answers from specified URLs
-- Use as a search engine [※](#-search-engine)
-- Support for providers other than OpenAI
-  - Google Generative AI Provider
-  - Anthropic Provider [※](https://github.com/miurla/morphic/pull/239)
-  - Ollama Provider ([Unstable](https://github.com/miurla/morphic/issues/215))
-- Specify the model to generate answers
-  - Groq API support [※](https://github.com/miurla/morphic/pull/58)
+### Core Features
+
+- AI-powered search with GenerativeUI
+- Natural language question understanding
+- Multiple search providers support (Tavily, SearXNG, Exa)
+- Model selection from UI (switch between available AI models)
+  - Reasoning models with visible thought process
+
+### Chat & History
+
+- Chat history functionality (Optional)
+- Share search results (Optional)
+- Redis support (Local/Upstash)
+
+### AI Providers
+
+- OpenAI (Default)
+- Google Generative AI
+- Azure OpenAI
+- Anthropic
+- Ollama
+- Groq
+- DeepSeek
+- Fireworks
+- OpenAI Compatible
+
+### Search Capabilities
+
+- URL-specific search
+- Video search support (Optional)
+- SearXNG integration with:
+  - Customizable search depth (basic/advanced)
+  - Configurable engines
+  - Adjustable results limit
+  - Safe search options
+  - Custom time range filtering
+
+### Additional Features
+
+- Docker deployment ready
+- Browser search engine integration
 
 ## 🧱 Stack
 
-- App framework: [Next.js](https://nextjs.org/)
-- Text streaming / Generative UI: [Vercel AI SDK](https://sdk.vercel.ai/docs)
-- Generative Model: [OpenAI](https://openai.com/)
-- Search API: [Tavily AI](https://tavily.com/) / [Serper](https://serper.dev)
-- Reader API: [Jina AI](https://jina.ai/)
-- Serverless Database: [Upstash](https://upstash.com/)
-- Component library: [shadcn/ui](https://ui.shadcn.com/)
-- Headless component primitives: [Radix UI](https://www.radix-ui.com/)
-- Styling: [Tailwind CSS](https://tailwindcss.com/)
+### Core Framework
+
+- [Next.js](https://nextjs.org/) - App Router, React Server Components
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Vercel AI SDK](https://sdk.vercel.ai/docs) - Text streaming / Generative UI
+
+### AI & Search
+
+- [OpenAI](https://openai.com/) - Default AI provider (Optional: Google AI, Anthropic, Groq, Ollama, Azure OpenAI, DeepSeek, Fireworks)
+- [Tavily AI](https://tavily.com/) - Default search provider
+- Alternative providers:
+  - [SearXNG](https://docs.searxng.org/) - Self-hosted search
+  - [Exa](https://exa.ai/) - Neural search
+
+### Data Storage
+
+- [Upstash](https://upstash.com/) - Serverless Redis
+- [Redis](https://redis.io/) - Local Redis option
+
+### UI & Styling
+
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [shadcn/ui](https://ui.shadcn.com/) - Re-usable components
+- [Radix UI](https://www.radix-ui.com/) - Unstyled, accessible components
+- [Lucide Icons](https://lucide.dev/) - Beautiful & consistent icons
 
 ## 🚀 Quickstart
 
@@ -50,70 +94,56 @@ An AI-powered search engine with a generative UI.
 
 Fork the repo to your Github account, then run the following command to clone the repo:
 
-```
+```bash
 git clone git@github.com:[YOUR_GITHUB_ACCOUNT]/morphic.git
 ```
 
 ### 2. Install dependencies
 
-```
+```bash
 cd morphic
 bun install
 ```
 
-### 3. Setting up Upstash Redis
+### 3. Configure environment variables
 
-Follow the guide below to set up Upstash Redis. Create a database and obtain `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. Refer to the [Upstash guide](https://upstash.com/blog/rag-chatbot-upstash#setting-up-upstash-redis) for instructions on how to proceed.
-
-### 4. Fill out secrets
-
-```
+```bash
 cp .env.local.example .env.local
 ```
 
-Your .env.local file should look like this:
+Fill in the required environment variables in `.env.local`:
 
-```
-# OpenAI API key retrieved here: https://platform.openai.com/api-keys
-OPENAI_API_KEY=
-
-# Tavily API Key retrieved here: https://app.tavily.com/home
-TAVILY_API_KEY=
-
-# Upstash Redis URL and Token retrieved here: https://console.upstash.com/redis
-UPSTASH_REDIS_REST_URL=
-UPSTASH_REDIS_REST_TOKEN=
+```bash
+# Required
+OPENAI_API_KEY=     # Get from https://platform.openai.com/api-keys
+TAVILY_API_KEY=     # Get from https://app.tavily.com/home
 ```
 
-_Note: This project focuses on Generative UI and requires complex output from LLMs. Currently, it's assumed that the official OpenAI models will be used. Although it's possible to set up other models, if you use an OpenAI-compatible model, but we don't guarantee that it'll work._
+For optional features configuration (Redis, SearXNG, etc.), see [CONFIGURATION.md](./docs/CONFIGURATION.md)
 
-### 5. Run app locally
+### 4. Run app locally
 
-```
+#### Using Bun
+
+```bash
 bun dev
 ```
 
-You can now visit http://localhost:3000.
+#### Using Docker
+
+```bash
+docker compose up -d
+```
+
+Visit http://localhost:3000 in your browser.
 
 ## 🌐 Deploy
 
-Host your own live version of Morphic with Vercel or Cloudflare Pages.
+Host your own live version of Morphic with Vercel, Cloudflare Pages, or Docker.
 
 ### Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmiurla%2Fmorphic&env=OPENAI_API_KEY,TAVILY_API_KEY,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN)
-
-### Cloudflare Pages
-
-1. Fork the repo to your GitHub.
-2. Create a Cloudflare Pages project.
-3. Select `Morphic` repo and `Next.js` preset.
-4. Set `OPENAI_API_KEY` and `TAVILY_API_KEY` env vars.
-5. Save and deploy.
-6. Cancel deployment, go to `Settings` -> `Functions` -> `Compatibility flags`, add `nodejs_compat` to preview and production.
-7. Redeploy.
-
-**The build error needs to be fixed: [issue](https://github.com/miurla/morphic/issues/114)**
 
 ## 🔎 Search Engine
 
@@ -136,22 +166,62 @@ This will allow you to use Morphic as your default search engine in the browser.
 
 ## ✅ Verified models
 
-### List of models applicable to all:
+### List of models applicable to all
 
 - OpenAI
+  - o3-mini
   - gpt-4o
   - gpt-4o-mini
   - gpt-4-turbo
   - gpt-3.5-turbo
 - Google
-  - Gemini 1.5 pro (Unstable)
+  - Gemini 2.0 Pro (Experimental)
+  - Gemini 2.0 Flash Thinking (Experimental)
+  - Gemini 2.0 Flash
 - Anthropic
   - Claude 3.5 Sonnet
-- Ollama (Unstable)
-  - mistral/openhermes & Phi3/llama3 [※](https://github.com/miurla/morphic/issues/215)
+  - Claude 3.5 Hike
+- Ollama
+  - qwen2.5
+  - deepseek-r1
+- Groq
+  - deepseek-r1-distill-llama-70b
+- DeepSeek
+  - DeepSeek V3
+  - DeepSeek R1
+- xAI
+  - grok-2
+  - grok-2-vision
 
-### List of verified models that can be specified to writers:
+## ⚡ AI SDK Implementation
 
-- [Groq](https://console.groq.com/docs/models)
-  - LLaMA3 8b
-  - LLaMA3 70b
+### Current Version: AI SDK UI
+
+This version of Morphic uses the AI SDK UI implementation, which is recommended for production use. It provides better streaming performance and more reliable client-side UI updates.
+
+### Previous Version: AI SDK RSC (v0.2.34 and earlier)
+
+The React Server Components (RSC) implementation of AI SDK was used in versions up to [v0.2.34](https://github.com/miurla/morphic/releases/tag/v0.2.34) but is now considered experimental and not recommended for production. If you need to reference the RSC implementation, please check the v0.2.34 release tag.
+
+> Note: v0.2.34 was the final version using RSC implementation before migrating to AI SDK UI.
+
+For more information about choosing between AI SDK UI and RSC, see the [official documentation](https://sdk.vercel.ai/docs/getting-started/navigating-the-library#when-to-use-ai-sdk-rsc).
+
+## 📦 Open Source vs Cloud Offering
+
+Morphic is open source software available under the Apache-2.0 license.
+
+To maintain sustainable development and provide cloud-ready features, we offer a hosted version of Morphic alongside our open-source offering. The cloud solution makes Morphic accessible to non-technical users and provides additional features while keeping the core functionality open and available for developers.
+
+For our cloud service, visit [morphic.sh](https://morphic.sh).
+
+## 👥 Contributing
+
+We welcome contributions to Morphic! Whether it's bug reports, feature requests, or pull requests, all contributions are appreciated.
+
+Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
+
+- How to submit issues
+- How to submit pull requests
+- Commit message conventions
+- Development setup

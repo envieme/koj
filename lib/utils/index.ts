@@ -1,63 +1,18 @@
+import { type Model } from '@/lib/types/models'
+import {
+  convertToCoreMessages,
+  CoreMessage,
+  CoreToolMessage,
+  generateId,
+  JSONValue,
+  Message,
+  ToolInvocation
+} from 'ai'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { createOllama } from 'ollama-ai-provider'
-import { createOpenAI } from '@ai-sdk/openai'
-import { google } from '@ai-sdk/google'
-import { anthropic } from '@ai-sdk/anthropic'
-import { CoreMessage } from 'ai'
-
+import { ExtendedCoreMessage } from '../types'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
-}
-
-export function getModel(useSubModel = false) {
-  const ollamaBaseUrl = process.env.OLLAMA_BASE_URL + '/api'
-  const ollamaModel = process.env.OLLAMA_MODEL
-  const ollamaSubModel = process.env.OLLAMA_SUB_MODEL
-  const openaiApiBase = process.env.OPENAI_API_BASE
-  const openaiApiKey = process.env.OPENAI_API_KEY
-  let openaiApiModel = process.env.OPENAI_API_MODEL || 'gpt-4o'
-  const googleApiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY
-  const anthropicApiKey = process.env.ANTHROPIC_API_KEY
-
-  if (
-    !(ollamaBaseUrl && ollamaModel) &&
-    !openaiApiKey &&
-    !googleApiKey &&
-    !anthropicApiKey
-  ) {
-    throw new Error(
-      'Missing environment variables for Ollama, OpenAI, Google or Anthropic'
-    )
-  }
-  // Ollama
-  if (ollamaBaseUrl && ollamaModel) {
-    const ollama = createOllama({ baseURL: ollamaBaseUrl })
-
-    if (useSubModel && ollamaSubModel) {
-      return ollama(ollamaSubModel)
-    }
-
-    return ollama(ollamaModel)
-  }
-
-  if (googleApiKey) {
-    return google('models/gemini-1.5-pro-latest')
-  }
-
-  if (anthropicApiKey) {
-    return anthropic('claude-3-5-sonnet-20240620')
-  }
-
-  // Fallback to OpenAI instead
-
-  const openai = createOpenAI({
-    baseURL: openaiApiBase, // optional base URL for proxies etc.
-    apiKey: openaiApiKey, // optional API key, default to env property OPENAI_API_KEY
-    organization: '' // optional organization
-  })
-
-  return openai.chat(openaiApiModel)
 }
 
 /**
@@ -79,4 +34,224 @@ export function transformToolMessages(messages: CoreMessage[]): CoreMessage[] {
         }
       : message
   ) as CoreMessage[]
+}
+
+/**
+ * Sanitizes a URL by replacing spaces with '%20'
+ * @param url - The URL to sanitize
+ * @returns The sanitized URL
+ */
+export function sanitizeUrl(url: string): string {
+  return url.replace(/\s+/g, '%20')
+}
+
+export function createModelId(model: Model): string {
+  return `${model.providerId}:${model.id}`
+}
+
+export function getDefaultModelId(models: Model[]): string {
+  if (!models.length) {
+    throw new Error('No models available')
+  }
+  return createModelId(models[0])
+}
+
+function addToolMessageToChat({
+  toolMessage,
+  messages
+}: {
+  toolMessage: CoreToolMessage
+  messages: Array<Message>
+}): Array<Message> {
+  return messages.map(message => {
+    if (message.toolInvocations) {
+      return {
+        ...message,
+        toolInvocations: message.toolInvocations.map(toolInvocation => {
+          const toolResult = toolMessage.content.find(
+            tool => tool.toolCallId === toolInvocation.toolCallId
+          )
+
+          if (toolResult) {
+            return {
+              ...toolInvocation,
+              state: 'result',
+              result: toolResult.result
+            }
+          }
+
+          return toolInvocation
+        })
+      }
+    }
+
+    return message
+  })
+}
+
+export function convertToUIMessages(
+  messages: Array<ExtendedCoreMessage>
+): Array<Message> {
+  let pendingAnnotations: JSONValue[] = []
+  let pendingReasoning: string | undefined = undefined
+  let pendingReasoningTime: number | undefined = undefined
+
+  return messages.reduce((chatMessages: Array<Message>, message) => {
+    // Handle tool messages
+    if (message.role === 'tool') {
+      return addToolMessageToChat({
+        toolMessage: message as CoreToolMessage,
+        messages: chatMessages
+      })
+    }
+
+    // Data messages are used to capture annotations, including reasoning.
+    if (message.role === 'data') {
+      if (
+        message.content !== null &&
+        message.content !== undefined &&
+        typeof message.content !== 'string'
+      ) {
+        const content = message.content as JSONValue
+        if (
+          content &&
+          typeof content === 'object' &&
+          'type' in content &&
+          'data' in content
+        ) {
+          if (content.type === 'reasoning') {
+            // If content.data is an object, capture its reasoning and time;
+            // otherwise treat it as a simple string.
+            if (typeof content.data === 'object' && content.data !== null) {
+              pendingReasoning = (content.data as any).reasoning
+              pendingReasoningTime = (content.data as any).time
+            } else {
+              pendingReasoning = content.data as string
+              pendingReasoningTime = 0
+            }
+          } else {
+            pendingAnnotations.push(content)
+          }
+        }
+      }
+      return chatMessages
+    }
+
+    // Build the text content and tool invocations from message.content.
+    let textContent = ''
+    let toolInvocations: Array<ToolInvocation> = []
+
+    if (message.content) {
+      if (typeof message.content === 'string') {
+        textContent = message.content
+      } else if (Array.isArray(message.content)) {
+        for (const content of message.content) {
+          if (content && typeof content === 'object' && 'type' in content) {
+            if (content.type === 'text' && 'text' in content) {
+              textContent += content.text
+            } else if (
+              content.type === 'tool-call' &&
+              'toolCallId' in content &&
+              'toolName' in content &&
+              'args' in content
+            ) {
+              toolInvocations.push({
+                state: 'call',
+                toolCallId: content.toolCallId,
+                toolName: content.toolName,
+                args: content.args
+              } as ToolInvocation)
+            }
+          }
+        }
+      }
+    }
+
+    // For assistant messages, assemble annotations from any stashed data.
+    let annotations: JSONValue[] | undefined = undefined
+    if (message.role === 'assistant') {
+      if (pendingAnnotations.length > 0 || pendingReasoning !== undefined) {
+        annotations = [
+          ...pendingAnnotations,
+          ...(pendingReasoning !== undefined
+            ? [
+                {
+                  type: 'reasoning',
+                  data: {
+                    reasoning: pendingReasoning,
+                    time: pendingReasoningTime ?? 0
+                  }
+                }
+              ]
+            : [])
+        ]
+      }
+    }
+
+    // Create the new message. Note: we do not include a top-level "reasoning" property.
+    const newMessage: Message = {
+      id: generateId(),
+      role: message.role,
+      content: textContent,
+      toolInvocations: toolInvocations.length > 0 ? toolInvocations : undefined,
+      annotations: annotations
+    }
+
+    chatMessages.push(newMessage)
+
+    // Clear pending state after processing an assistant message.
+    if (message.role === 'assistant') {
+      pendingAnnotations = []
+      pendingReasoning = undefined
+      pendingReasoningTime = undefined
+    }
+
+    return chatMessages
+  }, [])
+}
+
+export function convertToExtendedCoreMessages(
+  messages: Message[]
+): ExtendedCoreMessage[] {
+  const result: ExtendedCoreMessage[] = []
+
+  for (const message of messages) {
+    // Convert annotations to data messages
+    if (message.annotations && message.annotations.length > 0) {
+      message.annotations.forEach(annotation => {
+        result.push({
+          role: 'data',
+          content: annotation
+        })
+      })
+    }
+
+    // Convert reasoning to data message with unified structure (including time)
+    if (message.reasoning) {
+      const reasoningTime = (message as any).reasoningTime ?? 0
+      const reasoningData =
+        typeof message.reasoning === 'string'
+          ? { reasoning: message.reasoning, time: reasoningTime }
+          : {
+              ...(message.reasoning as Record<string, unknown>),
+              time:
+                (message as any).reasoningTime ??
+                (message.reasoning as any).time ??
+                0
+            }
+      result.push({
+        role: 'data',
+        content: {
+          type: 'reasoning',
+          data: reasoningData
+        } as JSONValue
+      })
+    }
+
+    // Convert current message
+    const converted = convertToCoreMessages([message])
+    result.push(...converted)
+  }
+
+  return result
 }

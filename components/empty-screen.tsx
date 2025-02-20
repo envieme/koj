@@ -5,6 +5,8 @@ const exampleMessages = [
   {
     heading: 'What is Apple Intelligence?',
     message: 'What is Apple Intelligence?'
+    heading: 'What is DeepSeek R1?',
+    message: 'What is DeepSeek R1?'
   },
   {
     heading: 'Why is India growing rapidly?',
@@ -17,6 +19,12 @@ const exampleMessages = [
   {
     heading: 'Compare Mahindra vs Tata in EV',
     message: 'Compare Mahindra vs Tata in EV'
+    heading: 'Tesla vs Rivian',
+    message: 'Tesla vs Rivian'
+  },
+  {
+    heading: 'Summary: https://arxiv.org/pdf/2501.05707',
+    message: 'Summary: https://arxiv.org/pdf/2501.05707'
   }
 ]
 export function EmptyScreen({
@@ -29,7 +37,7 @@ export function EmptyScreen({
   return (
     <div className={`mx-auto w-full transition-all ${className}`}>
       <div className="bg-background p-2">
-        <div className="mt-4 flex flex-col items-start space-y-2 mb-4">
+        <div className="mt-2 flex flex-col items-start space-y-2 mb-4">
           {exampleMessages.map((message, index) => (
             <Button
               key={index}

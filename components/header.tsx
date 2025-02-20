@@ -1,5 +1,10 @@
 // components/header.tsx
 'use client';
+import { cn } from '@/lib/utils'
+import React from 'react'
+import HistoryContainer from './history-container'
+import { ModeToggle } from './mode-toggle'
+import { IconLogo } from './ui/icons'
 
 import React, { CSSProperties } from 'react';
 import { ModeToggle } from './mode-toggle';
@@ -25,6 +30,7 @@ export const Header: React.FC = () => {
   return (
     <header className={`w-full p-1 md:p-2 flex justify-between items-center z-10 backdrop-blur md:backdrop-blur-none bg-background/80 md:bg-transparent`}>
       <meta name="google-adsense-account" content="ca-pub-1753126371326468"></meta>
+    <header className="fixed w-full p-2 flex justify-between items-center z-10 backdrop-blur md:backdrop-blur-none bg-background/80 md:bg-transparent">
       <div>
         <a href="/">
           <IconLogo className={cn('w-5 h-5')} />
