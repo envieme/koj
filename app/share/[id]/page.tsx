@@ -1,17 +1,15 @@
-import { notFound } from 'next/navigation'
 import { Chat } from '@/components/chat'
 import { getSharedChat } from '@/lib/actions/chat'
-import { AI } from '@/app/actions'
-export const runtime = 'edge';
+import { convertToUIMessages } from '@/lib/utils'
+import { notFound } from 'next/navigation'
+
+export const runtime = 'edge'
+
 export interface SharePageProps {
   params: {
     id: string
   }
 }
-
-export async function generateMetadata({ params }: SharePageProps) {
-  const chat = await getSharedChat(params.id)
-import { convertToUIMessages } from '@/lib/utils'
 
 export async function generateMetadata(props: {
   params: Promise<{ id: string }>
