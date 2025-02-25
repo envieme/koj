@@ -1,8 +1,9 @@
-import { Chat } from '@/components/chat'
-import { getChat } from '@/lib/actions/chat'
-import { getModels } from '@/lib/config/models'
-import { convertToUIMessages } from '@/lib/utils'
-import { notFound, redirect } from 'next/navigation'
+export const runtime = 'edge';
+import { Chat } from '@/components/chat';
+import { getChat } from '@/lib/actions/chat';
+import { getModels } from '@/lib/config/models';
+import { convertToUIMessages } from '@/lib/utils';
+import { notFound, redirect } from 'next/navigation';
 
 export const maxDuration = 60
 

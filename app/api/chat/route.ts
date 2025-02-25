@@ -1,8 +1,9 @@
-import { createManualToolStreamResponse } from '@/lib/streaming/create-manual-tool-stream'
-import { createToolCallingStreamResponse } from '@/lib/streaming/create-tool-calling-stream'
-import { Model } from '@/lib/types/models'
-import { isProviderEnabled } from '@/lib/utils/registry'
-import { cookies } from 'next/headers'
+export const runtime = 'edge';
+import { createManualToolStreamResponse } from '@/lib/streaming/create-manual-tool-stream';
+import { createToolCallingStreamResponse } from '@/lib/streaming/create-tool-calling-stream';
+import { Model } from '@/lib/types/models';
+import { isProviderEnabled } from '@/lib/utils/registry';
+import { cookies } from 'next/headers';
 
 export const maxDuration = 30
 

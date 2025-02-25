@@ -1,7 +1,8 @@
-import { Chat } from '@/components/chat'
-import { getModels } from '@/lib/config/models'
-import { generateId } from 'ai'
-import { redirect } from 'next/navigation'
+export const runtime = 'edge';
+import { Chat } from '@/components/chat';
+import { getModels } from '@/lib/config/models';
+import { generateId } from 'ai';
+import { redirect } from 'next/navigation';
 
 export const maxDuration = 60
 

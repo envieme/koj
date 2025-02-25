@@ -1,8 +1,9 @@
-import { Chat } from '@/components/chat'
-import { getSharedChat } from '@/lib/actions/chat'
-import { getModels } from '@/lib/config/models'
-import { convertToUIMessages } from '@/lib/utils'
-import { notFound } from 'next/navigation'
+export const runtime = 'edge';
+import { Chat } from '@/components/chat';
+import { getSharedChat } from '@/lib/actions/chat';
+import { getModels } from '@/lib/config/models';
+import { convertToUIMessages } from '@/lib/utils';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props: {
   params: Promise<{ id: string }>

@@ -1,6 +1,7 @@
-import { Chat } from '@/components/chat'
-import { getModels } from '@/lib/config/models'
-import { generateId } from 'ai'
+export const runtime = 'edge';
+import { Chat } from '@/components/chat';
+import { getModels } from '@/lib/config/models';
+import { generateId } from 'ai';
 
 export default async function Page() {
   const id = generateId()
